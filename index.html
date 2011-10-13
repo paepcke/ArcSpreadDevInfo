@@ -113,7 +113,12 @@ Git has a huge command set. I only use a handful of commands:
 <li>git pull origin [remoteBranchName]:[remoteBranchName]</li>
 <li>git reset --hard HEAD // Throw away changes I made since my last commit.
     </li>
-<li>diffuse *****</li>
+<li>git mergetool // Invoke the default mergetool you set up<br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      // earlier using, for example in case of using the diffuse tool:<br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      // &nbsp;&nbsp;&nbsp;<code>git config --global merge.tool diffuse</code> 
+    </li>
 </ul>
 </code>
 You can find your own style of working with Git, but when I develop on

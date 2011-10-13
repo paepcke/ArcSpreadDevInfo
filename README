@@ -1,0 +1,10 @@
+This project has no code. It's just Web pages intended for use by the
+ArcSpread team. The site is at: 
+
+     http://paepcke.github.com/ArcSpreadDevInfo
+
+You can change index.html, add files, or
+whatever. Then, once you committed locally, you push this back to the
+Web site via:
+
+     git push origin master:gh-pages
