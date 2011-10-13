@@ -3,8 +3,11 @@ ArcSpread team. The site is at:
 
      http://paepcke.github.com/ArcSpreadDevInfo
 
-You can change index.html, add files, or
-whatever. Then, once you committed locally, you push this back to the
-Web site via:
+You can clone that repo to your own machine via:
+
+     git clone git@github.com:paepcke/ArcSpreadDevInfo.git
+
+You can change then change index.html, add files, or whatever. Then,
+once you committed locally, you push this back to the Web site via:
 
      git push origin master:gh-pages
