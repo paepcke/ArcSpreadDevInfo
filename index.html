@@ -1,7 +1,405 @@
 <html>
 <head></head>
 <body>
-<h1>Dev-Team Info for Projects with Andreas Paepcke</h1>
-<B>To be filled in</B>
+<center>
+<h1>Dev-Team Info for the ArcSpread Project</h1>
+<em>Still lots to add, and probably to correct. Work in progress.</em>
+</center>
+
+<h2>Conventions</h2>
+I had more than this list below, can't find them right now. I'll add
+as I remember.
+<ul>
+<li>Don't leave compiler warnings around (yellow marks in
+  Eclipse). Some Eclipse warnings are unwarranted. For example,
+  'Unused method.' You might want that method around anyway. Then
+  it's ok to put a <code>@SuppressWarnings("unused")</code> before
+  the method.</li>
+<li>Add JavaDoc to your code. Hint <code>alt-shift j</code> in Eclipse
+  puts a JavaDoc stub above the current method.</li>
+<li>Use Git, Github, and Maven (see below)</li>
+<li>Write a jUnit test for each of your features</li>
+<li>For shell scripts: use the Gnu convention of providing a short
+  and a long version for named parameters. Example: -h and --help, or
+  -n and --numpages. See the<a href="#sec:machineRoom"> machine room
+  section</a> for pointers to examples.</li>
+
+</ul>
+
+<h2>Useful Random Hints</h2>
+
+<ul>
+
+<li>Eclipse: Import whatever is needed: <code>Ctrl+Shift+O</code>
+  (Organize imports)</li> 
+<li>Eclipse: Goto class def: F3</li>    
+<li>Eclipse: Expand all methods: cnt-shift-Numpad_Multiply</li>    
+<li>Eclipse: Collapse all methods: cnt-shift-Numpad_Divide</li>
+<li>Auto-complete cnt-space (alt-/ with Emacs+)</li>
+<li>Eclipse: If you are an emacs person: use Emacs+ plugin by
+  Mulgasoft.</li>
+<li>Eclipse: Maven plugin is m2Eclipse</li>
+
+</ul>
+
+<h2>Maven</h2>
+For building and testing we Maven, a Java-centric build tool.
+</p>
+Even as you do your first little test coding,
+go ahead and do it in a Maven-sanctioned
+code tree structure. You get that structure
+created automatically with the command:
+</p>
+     <code>mvn archetype:create \<br/>
+                -DgroupId=PhotoSpread \<br/>
+                -DartifactId=PhotoSpread \<br/>
+                -DpackageName=edu.stanford.photoSpread
+     </code>
+</p>
+Each Maven project is known and unique throughout the world
+via its coordinates: groupId, artifactId, and packageName. For
+example, the above creates a source tree for the PhotoSpread
+Maven project: <code>PhotoSpread, PhotoSpread, edu.stanford.photoSpread.</code> 
+The '-D' passes an argument into a Java program. Maven's
+command 'mvn' is a Java program.
+
+Let's make our groupId be ArcSpread. Your individual projects
+will each have a different artifactId, which you can invent. For example:
+wordBrowser. Let's have all our packages start with 
+<code>edu.stanford.[yourArtifactName]</code>
+
+Once you issued the above command for your artifact,
+you'll have a pom.xml file in the root of your new tree. That's
+where any dependencies on outside libraries are recorded.
+
+If you put code into <code>[rootdir]src/main/java/...</code>, which
+has been created for you, you just cd to your <code>[rootdir]</code>,
+and run:
+</p>
+   <code>mvn compile</code>
+</p>
+For other actions than compile (like 'compile your test code,' 'do 'testing,'
+'package your stuff into a jar file that I can run on my machine', etc., look
+for the keyword 'life phases' in the Maven literature.
+
+<h2>Git</h2>
+Git has a huge command set. I only use a handful of commands:
+<code>
+<ul>
+<li>git branch  // Which branch am I on, and which branches exist?</li>
+<li>git checkout [branch] // Make my working tree be 'branch' </li>
+<li>git status // Is there anything to commit to the local repo?</li>
+<li>git commit -a -m "Description of what this commit changes in the
+                      code."<br/>
+    &nbsp;&nbsp;&nbsp;
+    // Commit all newly added files, or old but changed files to
+                      the <b>local</b> repo.<br/>
+    &nbsp;&nbsp;&nbsp;
+    // Note: in many shells you can hit return during your commit message,<br/>
+    &nbsp;&nbsp;&nbsp;
+    // &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       before you close the quote. Doing this will make your commit<br/>
+    &nbsp;&nbsp;&nbsp;
+    // &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       messages much more readable.
+</li>
+<li>git push origin [myBranchName]:[myBranchName]<br/>
+    &nbsp;&nbsp;&nbsp;
+    // Push my current branch back to the remote repo,<br/>
+    &nbsp;&nbsp;&nbsp;
+    // creating a branch of the same name there, if such a branch<br/>
+    &nbsp;&nbsp;&nbsp;
+    // doesn't exist yet.</li>
+<li>git pull origin [remoteBranchName]:[remoteBranchName]</li>
+<li>git reset --hard HEAD // Throw away changes I made since my last commit.
+    </li>
+<li>diffuse *****</li>
+</ul>
+</code>
+You can find your own style of working with Git, but when I develop on
+my own, I feel safest just keeping a straight line of branches that I
+name by the dates I worked on them. Like this. Assume it's Oct12,
+2011, and I have a branch called Sep25_2011, which is my currently
+checked out (i.e. active) branch. I start the day doing this:
+<br/><code>
+git branch Oct12_2011
+git checkout Oct12_2011
+<br/></code>
+Now I change the code. When I'm done for the day, I do:
+<br/><code>
+git push origin Oct12_2011:Oct12_2011
+<br/></code>
+This will create a new branch in the remote repo, with the same
+name as the local branch I created in the morning.
+It's an extremely conservative use of Git, but it works for me. Feel
+free to be more adventurous, creating parallel branches, and merging
+them.
+<p/>
+After some research I decided on <code>diffuse</code> as my file diff
+viewing and merging tool. To make git use diffuse for the 'git
+mergetool' command (after you installed <code>diffuse</code>:<br/>
+<code>git config --global merge.tool diffuse</code>
+
+<h3>Git commands beyond the basics</h3>
+The following commands are mostly from the Web. I did try them, but
+there could be typos. Try anything new with Git on an example
+first. Git can bite.
+<ul>
+<li>If you want to work in the more standard way of always
+     having <code>master</code> be the current stable branch:
+  <code>
+  <ul>
+      <li>git checkout master    // to get to the latest from repo</li>  
+      <li>git branch Oct12_2011  </li>  
+      <li>git checkout Oct12_2011  </li>  
+      <li>make changes  </li>  
+      <li>git push origin HEAD:master  </li>  
+  </ul>
+  </code>
+  </li>  
+<li>What would be commited (i.e. has been staged):
+  <code>git status</code>
+  </li>  
+<li>Show commit messages:<br/>
+  <code>git log --pretty=short</code>
+  </li>
+<li>Show which branches exist, and which you are on:
+  <code>git branch</code>
+  </li>  
+<li>View remote depot status:
+  <code>git remote show [depotName]</code><br/>
+  Example: <code>git remote show origin</code>
+  </li>  
+<li>Remove files from source code control that you
+    accidentally added; but leave the sources themselves
+    there:<br/> 
+    <code>git rm --cached [fileName]</code>
+    </li>
+<li>Find branches existing on remote repo:<br/>
+    <code>git ls-remote origin</code>
+    </li>
+<li>Abandon changes you made, but have not yet committed:<br/>
+    <code>git reset --hard HEAD</code>
+    </li>
+<li>List all untracked files:<br/>
+    <code>git ls-files --other --exclude-standard</code><br/>
+    Nice alias for adding untracked files:<br/>
+    <code>au = !git add $(git ls-files -o --exclude-standard)</code>
+    </li>
+<li>Show differences. Conceptually: three sets of files whose
+    pairwise differences might be of interest:<br/>
+    <ol>
+       <li>Your working tree</li>
+       <li>What you've staged but not committed</li>
+       <li>What you committed during the latest commit</li>
+    </ol><br/>
+
+    Here is how you do the diffs:
+    <ol>
+      <li>Between working tree and what's either staged or already in
+           the repo (i.e. between 1 and union of 2 and 3):<br/>
+               <code>git diff</code>
+          </li>
+      <li> Between working tree and the latest commit (i.e. ignoring
+	   what's staged but not yet committed (i.e. between 1 and 3):<br/>
+	       <code>git diff HEAD</code>
+	  </li>
+      <li>Between what you staged, and what's in the repo
+           (i.e. between 2 and 3)<br/>
+	       <code>git diff --cached</code>
+          </li>
+    </ol>
+
+</li>
+<li>Previewing what git pull would bring<br/>
+    <code>
+      git fetch 
+      git log HEAD..origin
+             // to show the log entries between your last common commit
+             // and the origin branch. <br/>
+    </code>
+      To show the diffs, use either <br/>
+    <code>
+      git log -p HEAD..origin to show each patch, or 
+      git diff HEAD...origin (three dots not two) to show a single
+      diff. 
+    </code>
+    </li>
+<li>View past changes:<br/>
+    <code>git log --pretty=short
+    </li></code>
+<li>Viewing file contents in other branches: <br/>
+    <code>git show <branchName>:<path></code><br/>
+    Example: <code>git show Trash:src/foo.txt</code>
+    </li>
+      
+</ul>
+
+<h2>Github is our Code Repository</h2>
+We'll use two facilities on Github. Several code repositories, and one
+repository for intra-project info. Feel free to add pages and links to
+this <code>index.html</code>file. Current repos on Github are:
+<ul>
+<li>ArcSpreadDevInfo (this Web site)<br/>
+  <code>git@github.com:paepcke/ArcSpreadDevInfo.git</code>
+  </li>
+<li>ArcSpreadUX (spreadsheet, cell browsers, and data viz)<br/>
+  <code>git@github.com:paepcke/ArcSpreadUX.git</code>
+  </li>
+<li>ArcSpreadMachineRoom (everything below the spreadsheet: hodoop,
+  Pig, SQLite.)<br/>
+  <code>git@github.com:paepcke/ArcSpreadMachineRoom.git</code>
+  </li>
+<li>PigIRAnt (the Hadoop/Pig work I did in preparation: Pig loader for
+  WebBase, word count, part-of-speech tagging, etc. This will migrate
+  to ArcSpreadMachineRoom)<br/>
+  <code>git@github.com:paepcke/PigIRAnt.git</code>
+  </li>
+</ul>
+
+<h2><a name="sec:machineRoom">Machine Room Info</a></h2>
+<h3>Structuring Interaction Between Sheet Engine and Machine Components</h3>
+In Github repo PigIRAnt, in directory PigScripts/CommandLineUtils
+you'll find how I envision the machine room facilities to work. Each
+processing module is made up of two files, plus associated Java
+User-Defined Functions (in <code>src</code>): One PigScript that does
+the processing, and one Bash shell script that serves as a console
+command that invokes the Pig script. Each shell script provides usage
+info when invoked with -h, --help, or no parameters. 
+<p/>
+Each Pig script uses the WebBase loader, or the WARC loader to pull in
+Web pages. The scripts' outputs are usually files in HDFS that can be
+consumed directly by the upper layers, or can be moved into SQLite.
+<p/>
+The spreadsheet engine will invoke the shell scripts as OS calls from
+Java. 
+
+<h3>Our Cluster</h3>
+We have a roughly 60 node cluster in the basement of the Gates
+building. The main machine among those is <code>ilc0</code> (for
+info-lab-zero). You'll need an account on that machine. That's where
+you do your full tests. The machine is an HDFS and a regular home
+directory storage section (/home/[userName]). You put your Pig scripts
+and corresponding shell scripts into the user section. Results will
+show up in HDFS.
+
+<h3>Using Hadoop</h3>
+Interacting with the HDFS file system from a shell command line
+on <code>ilc0</code>:
+<ul>
+
+   <li><code>hadoop dfs -ls /</code> </li>
+   <li><code>hadoop dfs -ls /user/paepcke</code> </li>
+   <li><code>hadoop dfs -cat /user/paepcke/foo</code> </li>
+   <li>To ombine all parts of a hadoop parts file into one, 
+      use -getmerge: 
+         <code>hadoop dfs -getmerge [partfile] [mergedFile][.gz]</code>
+      The .gz extension automatically gzips. Example:<br/>
+      <code>hadoop dfs -getmerge /user/paepcke/foo .</code>
+</ul>
+Here are some useful aliases to put into your .basrc (or other shell)
+startup file:
+<ul>
+	<li><code>alias hp='hadoop fs '</code></li>
+	<li><code>alias .ls="hadoop fs -ls"</code></li>
+	<li><code>alias .rm="hadoop fs -rm"</code></li> 
+	<li><code>alias .rmr="hadoop fs -rmr"</code></li>
+	<li><code>alias .cat="hadoop fs -cat"</code></li>
+	<li><code>alias .cpfl="hadoop fs -copyFromLocal"</code></li>
+	<li><code>alias .cptl="hadoop fs -copyToLocal" alias .pull="hadoop fs -getmerge"</code></li>
+</ul>
+Various URLs and files where you can monitor what Hadoop is doing:
+<ul>
+    <li>HDFS defaults are at:
+       <code>~/Software/Hadoop/Hadoop/hadoop-0.20.2/src/hdfs/hdfs-default.xml</code>
+    </li>
+    <li><code>http://ilc0/ganglia</code> (cluster CPU and memory usage)</li>
+    <li><code>http://ilc0:50030</code> (Job tracker)</li>
+    <li><code>http://ilc0:50070</code> (HDFS)</li>
+</ul>
+
+<h3>Using Pig</h3>
+Random Pig hints:
+
+<ul>
+  <li>Turning a set of tuples myTuples into a bag:<br/>
+     <code>myBag = GROUP myTuples all;</code>
+  </li>
+  <li>Including a jar file:<br/>
+   <code>
+   REGISTER /usr/local/pig-0.8.0-SNAPSHOT/contrib/piggybank/java/piggybank.jar;
+   REGISTER /home/paepcke/PigScripts/pigUtils.jar;
+   </code></li>
+  <li>Load command for CSV files:<br/>
+   <code>
+   tweets = LOAD 'Datasets/morTweetsSmall.csv' USING
+         org.apache.pig.piggybank.storage.CSVLoader AS (txt:chararray,
+         source:chararray, dateTime:chararray);
+   </code>
+  </li>
+  <li>Load command for a WebBase crawl:</li>
+   <code>
+     docs = LOAD '$CRAWL_SOURCE'<br/>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            USING pigir.webbase.WebBaseLoader()<br/>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            AS (url:chararray,<br/>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                date:chararray,<br/>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                pageSize:int,<br/>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                position:int,<br/>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                docIDInCrawl:int,<br/>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                httpHeader,<br/>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                content:chararray);<br/>
+   </code>
+   The environment variable <code>$CRAWL_SOURCE</code> is assumed to
+   hold the name of the crawl. See the <a href="#sec:Wibbi">Section on
+   interacting with WebBase via a browser</a> to understand which name
+   to use.. The above command will
+   conceptually provide a seven-column relation, where each Web page
+   of the crawl is one row.
+  </li>
+
+  <li>To avoid outOfMemory problems, make sure to give Eclipse
+      plenty of space. Do one of the following:
+  <ul>
+     <li> In <code>~/Software/Eclipse/eclipse/eclipse.ini</code>
+          change the <code>-Xmx</code> (max heap size) entry to 1GB
+          <code>-Xmx1000m</code>
+     </li>
+     <li> Or, in a hoggy project's Runtime config, select
+          the Arguments tab, and in the VM args panel at the
+          bottom, enter:
+          <code>-Xmx1000m</code>
+     </li>
+  </ul>
+</ul>
+
+<h2><a name="sec:Wibbi">Interacting With WebBase Via a Browser</a></h2>
+To see which crawls are available, and which sites each crawl covered,
+you can interact with WebBase directly, via the Web, that is
+independent of Hadoop and the Pig loader. 
+<p/>
+Go to 
+<code>http://diglib.stanford.edu:8091/~testbed/doc2/WebBase/</code>. Once
+there, find the paragraph on Wibbi, and click on the link there.
+<p/>
+You'll find a page that lets you define a stream of pages from one
+crawl. On the first page you specify how many pages you want, and how you
+want them filtered. On the next page you'll specify which crawl you
+want. 
+<p/>
+On that crawl selection page you'll see the crawl names in the first
+column. That's the name the Pig WebBase loader needs to find the
+crawl.
+<p/>
+When you hit the download button in one of the rows, your browser will
+ask you where you want the impending stream to be stored. The file you
+specify there will hold all the pages you download.
 </body>
 </html>
