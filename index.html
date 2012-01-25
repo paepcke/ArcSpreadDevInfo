@@ -39,7 +39,31 @@ as I remember.
 <li>Eclipse: If you are an emacs person: use Emacs+ plugin by
   Mulgasoft.</li>
 <li>Eclipse: Maven plugin is m2Eclipse</li>
-
+<li>Eclipse: alt-shift-j while cursor is within a method will put a javadoc
+    comment above the method. For example, typing alt-shift-j
+    inside the method below generates the comment javadoc stub
+    above the method:
+    <pre>
+    class Trash {
+        /**
+         * @param condition
+         * @param shockSetting
+         */
+        public void trial(int condition, float shockSetting) {
+            System.out.println("Foobar");
+        }
+    }
+    </pre>
+    You then fill in the rest to like something like:
+    <pre>
+    class Trash {
+        /**
+               *  Runs one trial of the experiment.
+         * @param condition: The experimental conditions code
+         * @param shockSetting: Voltage applied to the material
+         */
+    </pre>
+    </li>
 </ul>
 
 <h2>Maven</h2>
@@ -81,11 +105,43 @@ and run:
 For other actions than compile (like 'compile your test code,' 'do 'testing,'
 'package your stuff into a jar file that I can run on my machine', etc., look
 for the keyword 'life phases' in the Maven literature.
+</p>
+Some other useful Maven commands:
+<ul>
+  <li>Full make: <pre>mvn install</pre></li>
+  <li>Compile just the test suite: <pre>mvn test-compile</pre></li>
+  <li>Run (w/o making an actual distribution):<br>
+         <pre>mvn exec:java -Dexec.mainClass=photoSpread.App</pre>
+       Must be in project root dir. In place of App can be any other
+       class name that contains a Main.</li>
+
+  <li>Make documentation (will be under target/site/...): <pre>mvn site</pre>
+  <li>Run test suite: <pre>mvn test</pre></li>
+  <li>Make Eclipse project file: In your project root, type the following,
+        and you will get an Eclipse .project file: <pre>mvn eclipse:eclipse</pre></li>
+  <li>Resources, images  should go into <pre><rootDir>/src/main/resources</pre>
+  <li>Eclipse Maven plugin: Pull in from within Eclipse by
+       adding repo <pre>http://download.eclipse.org/technology/m2e/releases</pre>
+  <li>Learn about a Maven plugin (e.g. exec plugin):
+         <pre>mvn help:describe -Dplugin=exec -Dfull</pre></li>
+</ul>
 
 <h2>Git</h2>
 Git has a huge command set. I only use a handful of commands:
 <code>
 <ul>
+<li>Once you set up your Maven directory structure, get a Github URL
+  from Andreas, then inter the following on the command line in your
+  project root directory on your local machine (say the Github address
+  is git@github.com:paepcke/ArcSpreadUX.git:
+  <pre>
+    git init
+    git add *
+    git commit -a -m "Initial, empty Maven repository."
+    git add remote origin git@github.com:paepcke/ArcSpreadUX.git
+    git push origin master:master
+  </pre>
+  </li>
 <li>git branch  // Which branch am I on, and which branches exist?</li>
 <li>git checkout [branch] // Make my working tree be 'branch' </li>
 <li>git status // Is there anything to commit to the local repo?</li>
@@ -406,5 +462,16 @@ crawl.
 When you hit the download button in one of the rows, your browser will
 ask you where you want the impending stream to be stored. The file you
 specify there will hold all the pages you download.
+<h2><a name="sec:SampleFiles">Sample Hadoop-Created Crawl Info
+    Files</a></h2>
+For reference I created two datasets as example for what we will
+deal with out of the Hadoop processing step. One is a csv wordcount
+file for (part of) the March 2007 government crawl. The second is a part
+of speech tagged csv file for first 1000 pages of the June 2007 general
+crawl. You find them at <url>http://infolab.stanford.edu/~paepcke/shared-documents/Datasets/</url>
+<p/>
+These are good examples: the wordcount has simple strings or numbers in
+its comma-separated columns. But the POS file has little two-tuples. HongXia's
+DB library will hide this difference. 
 </body>
 </html>
