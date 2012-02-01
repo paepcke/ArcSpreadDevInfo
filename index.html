@@ -1,5 +1,13 @@
 <html>
-<head></head>
+<head>
+  <style>
+    .code {font-family:courier;}
+    div.xml1 {text-indent:10px;}
+    div.xml2 {text-indent:20px;}
+    div.xml3 {text-indent:30px;}
+  </style>
+</head>
+
 <body>
 <center>
 <h1>Dev-Team Info for the ArcSpread Project</h1>
@@ -473,5 +481,39 @@ crawl. You find them at <url>http://infolab.stanford.edu/~paepcke/shared-documen
 These are good examples: the wordcount has simple strings or numbers in
 its comma-separated columns. But the POS file has little two-tuples. HongXia's
 DB library will hide this difference. 
+<h2>Useful Software</h2>
+<ul>
+  <li>If you want to use the Stanford Part-Of-Speech (POS) tagger, add
+    the following repository information into your
+    <span class="code">pom.xml</span> file (if you already have
+    a <i>repositories</i> or <i>dependencies</i> entry in your
+    <span class="code">pom.xml</span>, splice the two entries below
+    into those existing elements):
+    <div class="code">
+      <div class="xml1">&lt;repositories&gt;
+	<div class="xml2">&lt;repository&gt;
+	  <div class="xml3">&lt;groupId&gt;Stanford Infolab Maven Repository&lt;/groupId&gt;</div>
+	  <div class="xml3">&lt;name&gt;Stanford Infolab Maven Repository-releases&lt;/name&gt;</div>
+	  <div class="xml3">&lt;url&gt;http://mono.stanford.edu:8081/artifactory/ext-release-local&lt;/url&gt;</div>
+	</div>
+	<div class="xml2">&lt;/repository&gt;
+	</div>
+      </div>
+      <div class="xml1">&lt;/repositories&gt;</div>
+      <p>
+      <div class="xml1">&lt;dependencies&gt;
+	<div class="xml2">&lt;dependency&gt;
+	  <div class="xml3">&lt;groupId&gt;stanford-postagger&lt;/groupId&gt;</div>
+	  <div class="xml3">&lt;artifactId&gt;stanford-postagger-with-model&lt;/artifactId&gt;</div>
+	  <div class="xml3">&lt;version&gt;2011-04-20&lt;/version&gt;</div>
+	</div>
+	<div class="xml2">&lt;/dependency&gt;</div>
+      </div>
+      <div class="xml1">&lt;/dependencies&gt;</div>
+    </div> <!-- end code> -->
+    <p>
+      This will automatically download the jar file, and adjust your Java
+      path to find entries within it.
+</ul>
 </body>
 </html>
