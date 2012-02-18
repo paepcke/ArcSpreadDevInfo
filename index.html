@@ -81,12 +81,19 @@ Even as you do your first little test coding,
 go ahead and do it in a Maven-sanctioned
 code tree structure. You get that structure
 created automatically with the command:
-</p>
-     <code>mvn archetype:create \<br/>
-                -DgroupId=PhotoSpread \<br/>
-                -DartifactId=PhotoSpread \<br/>
-                -DpackageName=edu.stanford.photoSpread
-     </code>
+<p>
+<code>mvn archetype:generate -Dfilter=quickstart \<br>
+                             -DgroupId=edu.stanford.arcspread.mypackage \<br>
+                             -DartifactId=MyProject \<br>
+                             -DpackageName=mycode<br>
+</code>
+This will generate a tree with the following path to where your code
+then goes:<br>
+
+<code>MyProject/src/main/java/edu/stanford/arcspread/mypackage</code><br>
+
+Your code goes into <code>mypackage</code>. The process will have put a
+file called App.java in that directory.
 </p>
 Each Maven project is known and unique throughout the world
 via its coordinates: groupId, artifactId, and packageName. For
@@ -482,6 +489,85 @@ These are good examples: the wordcount has simple strings or numbers in
 its comma-separated columns. But the POS file has little two-tuples. HongXia's
 DB library will hide this difference. 
 <h2>Useful Software</h2>
+
+<h3>Page Processing Utilities</h3>
+Several classes serve both as modules within Hadoop jobs,
+and for use within your Java applications. These classes
+are combined in the git package <code>PigIR</code>. 
+</p>
+The following utilities are currently available:
+<ul>
+  <li>Extracting anchor texts, as well as image tag ALT and TITLE
+      texts from any HTML string.</li>
+  <li>Generating a list of word/part-of-speech-tag pairs from any
+      string. If the string is HTML, POS tagging can be limited to include
+      only words within certain HTML tags.</li>
+  <li>A stopword service lets applications manage a stopword list. The
+      applications can add or delete words from an 'active' stopword list,
+      and they can ask to have stopwords removed from any given
+      text.</li>
+  <li>An Iterator over the Web pages in any WebBase crawl.</li>
+</ul>
+Access these facilities via the four classes in
+<code>edu.stanford.pigir.arcspread</code>
+
+<h4>Accessing the Page Processing Utilities From Your Code</h4>
+
+You most easily use this code by splicing the following into your
+pom.xml:
+
+<div class="xml1">&lt;repositories&gt;
+  <div class="xml2">&lt;repository&gt;
+      <div class="xml3">&lt;id&gt;mono.stanford.edu&lt;/id&gt;
+      <div class="xml3">&lt;name&gt;Stanford Infolab Maven Repository&lt;/name&gt;
+      <div class="xml3">&lt;url&gt;http://mono.stanford.edu:8081/artifactory/ext-release-local&lt;/url&gt;
+  </div>
+  <div class="xml2">&lt;/repository&gt;</div>
+<div class="xml1">&lt;/repositories&gt;<br>
+    ...
+</div>
+<div class="xml1">&lt;dependencies&gt;
+   <div class="xml2">&lt;dependency&gt;
+       <div class="xml3">&lt;groupId&gt;PigIR&lt;/groupId&gt;</div>
+       <div class="xml3">&lt;artifactId&gt;PigIR&lt;/artifactId&gt;</div>
+       <div class="xml3">&lt;version&gt;1.1.one&lt;/version&gt;</div>
+       <div class="xml3">&lt;classifier&gt;jar&lt;/classifier&gt;</div>
+   <div class="xml2">&lt;/dependency&gt;</div>
+<div class="xml1">&lt;/dependencies&gt;<br>
+    ...
+</div>
+</p>
+This should resolve your access to these
+utilities both on the command line (<code>mvn compile</code>),
+and within Eclipse, if you import your code as a Maven project.
+</p>
+Then, in your code, import what you need. For example,
+to use the part-of-speech tagger:<br>
+<code>import edu.stanford.pigir.arcspread.POSTagger;</code>
+</p>
+For the WebBase page extraction utility:<br>
+<code>import edu.stanford.pigir.webbase.DistributorContact;<br>
+import edu.stanford.pigir.webbase.WbRecord;<br>
+import edu.stanford.pigir.webbase.wbpull.webStream.BufferedWebStreamIterator;<br>
+</code>
+
+<h4>Distributing your Code</h4>
+
+If your code uses the <code>PigIR</code> utilities, then your
+users will need access to the <code>PigIR</code>. The easiest
+way to do this is by exporting your project from Eclipse. Like
+this:
+
+<ul>
+  <li></code>File-->Export-->Runnable Jar File-->Next Button</li>
+  <li>Check the Extract required libraries into generated jar</li>
+  <li>Fill the name of your output jar file into the Export
+      Destination text field.</li>
+  
+</ul>
+If you want to use the part of speech tagger directly (no longer
+recommended: deprecated in favor of the above <code>POSTagger</code>
+utility.
 <ul>
   <li>If you want to use the Stanford Part-Of-Speech (POS) tagger, add
     the following repository information into your
