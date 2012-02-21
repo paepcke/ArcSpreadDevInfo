@@ -488,9 +488,10 @@ crawl. You find them at <url>http://infolab.stanford.edu/~paepcke/shared-documen
 These are good examples: the wordcount has simple strings or numbers in
 its comma-separated columns. But the POS file has little two-tuples. HongXia's
 DB library will hide this difference. 
+
 <h2>Useful Software</h2>
 
-<h3>Page Processing Utilities</h3>
+<h3><a name="sec:pageProcessing">Page Processing Utilities</h3>
 Several classes serve both as modules within Hadoop jobs,
 and for use within your Java applications. These classes
 are combined in the git package <code>PigIR</code>. 
@@ -531,7 +532,7 @@ pom.xml:
    <div class="xml2">&lt;dependency&gt;
        <div class="xml3">&lt;groupId&gt;PigIR&lt;/groupId&gt;</div>
        <div class="xml3">&lt;artifactId&gt;PigIR&lt;/artifactId&gt;</div>
-       <div class="xml3">&lt;version&gt;1.1.one&lt;/version&gt;</div>
+       <div class="xml3">&lt;version&gt;1.1&lt;/version&gt;</div>
        <div class="xml3">&lt;classifier&gt;jar&lt;/classifier&gt;</div>
    <div class="xml2">&lt;/dependency&gt;</div>
 <div class="xml1">&lt;/dependencies&gt;<br>
@@ -556,16 +557,16 @@ import edu.stanford.pigir.webbase.wbpull.webStream.BufferedWebStreamIterator;<br
 
 If your code uses the <code>PigIR</code> utilities, then your
 users will need access to the <code>PigIR</code>. The easiest
-way to do this is by exporting your project from Eclipse. Like
-this:
-
-<ul>
-  <li></code>File-->Export-->Runnable Jar File-->Next Button</li>
-  <li>Check the Extract required libraries into generated jar</li>
-  <li>Fill the name of your output jar file into the Export
-      Destination text field.</li>
-  
-</ul>
+way to do this is to splice this to your
+pom.xml <code>dependencies</code> section:
+  <div class="xml1">&lt;dependencies&gt;
+    <div class="xml2">&lt;dependency&gt;
+      <div class="xml3">&lt;groupId>PigIR&lt;/groupId&gt;</div>
+      <div class="xml3">&lt;artifactId>PigIR&lt;/artifactId&gt;</div>
+      <div class="xml3">&lt;version>1.1&lt;/version&gt;</div>
+    </div>
+    <div class="xml2">&lt;/dependency&gt;</div>
+  </div>
 If you want to use the part of speech tagger directly (no longer
 recommended: deprecated in favor of the above <code>POSTagger</code>
 utility.
